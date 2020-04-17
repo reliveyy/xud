@@ -951,12 +951,14 @@ class Swaps extends EventEmitter {
       await this.setDealPhase(deal, SwapPhase.SendingPayment);
 
       try {
-        deal.rPreimage = await swapClient.sendPayment(deal);
-
         if (process.env.BREAKSWAP === 'MAKER_CRASH_AFTER_SEND') {
-          this.logger.info('BREAKSWAP: MAKER_CRASH_AFTER_SEND');
-          process.exit();
+          setTimeout(() => {
+            this.logger.info('BREAKSWAP: MAKER_CRASH_AFTER_SEND');
+            process.exit();
+          }, 2000);
         }
+
+        deal.rPreimage = await swapClient.sendPayment(deal);
 
         return deal.rPreimage;
       } catch (err) {

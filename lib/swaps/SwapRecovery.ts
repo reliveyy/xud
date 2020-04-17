@@ -25,6 +25,9 @@ class SwapRecovery {
       if (process.env.BREAKSWAP === 'MAKER_LND_CRASHED_BEFORE_SETTLE') {
         interval = 5000;
       }
+      if (process.env.BREAKSWAP === 'MAKER_CRASH_AFTER_SEND') {
+        interval = 5000;
+      }
 
       this.pendingSwapsTimer = setInterval(this.checkPendingSwaps, interval);
     }
