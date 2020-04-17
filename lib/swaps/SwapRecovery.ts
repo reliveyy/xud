@@ -21,7 +21,12 @@ class SwapRecovery {
 
   public beginTimer = () => {
     if (!this.pendingSwapsTimer) {
-      this.pendingSwapsTimer = setInterval(this.checkPendingSwaps, SwapRecovery.PENDING_SWAP_RECHECK_INTERVAL);
+      let interval = SwapRecovery.PENDING_SWAP_RECHECK_INTERVAL;
+      if (process.env.BREAKSWAP === 'MAKER_LND_CRASHED_BEFORE_SETTLE') {
+        interval = 5000;
+      }
+
+      this.pendingSwapsTimer = setInterval(this.checkPendingSwaps, interval);
     }
   }
 

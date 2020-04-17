@@ -210,6 +210,13 @@ class Swaps extends EventEmitter {
           await setTimeoutPromise(5000);
         }
 
+        if (deal && deal.role === SwapRole.Maker && process.env.BREAKSWAP === 'MAKER_LND_CRASHED_BEFORE_SETTLE') {
+          this.logger.info(`BREAKSWAP: ${process.env.BREAKSWAP}`);
+          this.logger.info(`LNDLTC_PID: ${process.env.LNDLTC_PID}`);
+          process.kill(parseInt(process.env.LNDLTC_PID!, 10));
+          await setTimeoutPromise(1000);
+        }
+
         await swapClient.settleInvoice(rHash, rPreimage);
 
         if (deal) {
@@ -549,7 +556,12 @@ class Swaps extends EventEmitter {
       createTime: Date.now(),
     };
 
-    this.timeouts.set(rHash, setTimeout(this.handleSwapTimeout, Swaps.SWAP_COMPLETE_TIMEOUT, rHash, SwapFailureReason.SwapTimedOut));
+    let interval = Swaps.SWAP_COMPLETE_TIMEOUT;
+    if (process.env.BREAKSWAP === 'MAKER_LND_CRASHED_BEFORE_SETTLE') {
+      interval = 5000;
+    }
+
+    this.timeouts.set(rHash, setTimeout(this.handleSwapTimeout, interval, rHash, SwapFailureReason.SwapTimedOut));
 
     // add the deal. Going forward we can "record" errors related to this deal.
     this.addDeal(deal);
