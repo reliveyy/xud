@@ -1469,12 +1469,6 @@ export class ConnextInfo extends jspb.Message {
     getAddress(): string;
     setAddress(value: string): void;
 
-
-    hasChannels(): boolean;
-    clearChannels(): void;
-    getChannels(): Channels | undefined;
-    setChannels(value?: Channels): void;
-
     getVersion(): string;
     setVersion(value: string): void;
 
@@ -1496,7 +1490,6 @@ export namespace ConnextInfo {
     export type AsObject = {
         status: string,
         address: string,
-        channels?: Channels.AsObject,
         version: string,
         chain: string,
     }

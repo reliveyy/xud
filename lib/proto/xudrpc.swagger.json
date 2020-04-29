@@ -947,9 +947,6 @@
         "address": {
           "type": "string"
         },
-        "channels": {
-          "$ref": "#/definitions/xudrpcChannels"
-        },
         "version": {
           "type": "string"
         },

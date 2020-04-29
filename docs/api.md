@@ -90,9 +90,11 @@
     - [OrderSide](#xudrpc.OrderSide)
     - [SwapSuccess.Role](#xudrpc.SwapSuccess.Role)
   
+  
     - [Xud](#xudrpc.Xud)
     - [XudInit](#xudrpc.XudInit)
   
+
 - [Scalar Value Types](#scalar-value-types)
 
 
@@ -281,7 +283,6 @@
 | ----- | ---- | ----- | ----------- |
 | status | [string](#string) |  |  |
 | address | [string](#string) |  |  |
-| channels | [Channels](#xudrpc.Channels) |  |  |
 | version | [string](#string) |  |  |
 | chain | [string](#string) |  |  |
 
