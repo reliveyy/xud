@@ -384,7 +384,7 @@ class Service {
     }
     const connext = await this.swapClientManager.connextClient?.getInfo();
     if (connext) {
-      connext.chain = `${connext.chain ? connext.chain : ''} ${this.pool.getNetwork()}`;
+      connext.chain = `${connext.chain ? connext.chain : ''}connext-${this.pool.getNetwork()}`;
     }
 
     return {
